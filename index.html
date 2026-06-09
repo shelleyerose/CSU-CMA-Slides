@@ -24,6 +24,9 @@
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
+  /* image links fill their container so the whole image is clickable */
+  a.img-link { display: block; width: 100%; height: 100%; cursor: pointer; }
+
   html, body {
     height: 100%;
     background: #11131a;
@@ -517,6 +520,18 @@
   ['click', 'keydown'].forEach(ev =>
     document.addEventListener(ev, () => { hint.style.opacity = '0'; }, { once: true })
   );
+
+  // make every image a clickable link to the program page (opens in a new tab)
+  const PROGRAM_URL = 'https://artsandsciences.csuohio.edu/history/digital-humanities';
+  document.querySelectorAll('.deck img').forEach((img) => {
+    const a = document.createElement('a');
+    a.href = PROGRAM_URL;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.className = 'img-link';
+    img.parentNode.insertBefore(a, img);
+    a.appendChild(img);
+  });
 
   go(0);
 </script>
